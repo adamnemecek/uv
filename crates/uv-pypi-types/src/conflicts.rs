@@ -487,9 +487,9 @@ impl<'a> ConflictPackageRef<'a> {
     /// If this conflict corresponds to an extra, then return the
     /// extra name.
     pub fn extra(&self) -> Option<&'a ExtraName> {
-        match *self {
-            ConflictPackageRef::Extra(extra) => Some(extra),
-            ConflictPackageRef::Group(_) => None,
+        match self {
+            Self::Extra(extra) => Some(extra),
+            Self::Group(_) => None,
         }
     }
 

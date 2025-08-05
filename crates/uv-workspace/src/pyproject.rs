@@ -1535,7 +1535,7 @@ impl Source {
         branch: Option<String>,
         root: &Path,
         existing_sources: Option<&BTreeMap<PackageName, Sources>>,
-    ) -> Result<Option<Source>, SourceError> {
+    ) -> Result<Option<Self>, SourceError> {
         // If the user specified a Git reference for a non-Git source, try existing Git sources before erroring.
         if !matches!(source, RequirementSource::Git { .. })
             && (branch.is_some() || tag.is_some() || rev.is_some())
@@ -1595,7 +1595,7 @@ impl Source {
         if workspace {
             return match source {
                 RequirementSource::Registry { .. } | RequirementSource::Directory { .. } => {
-                    Ok(Some(Source::Workspace {
+                    Ok(Some(Self::Workspace {
                         workspace: true,
                         marker: MarkerTree::TRUE,
                         extra: None,
@@ -1620,7 +1620,7 @@ impl Source {
             }
             RequirementSource::Registry { index: None, .. } => {
                 if let Some(index) = index {
-                    Source::Registry {
+                    Self::Registry {
                         index,
                         marker: MarkerTree::TRUE,
                         extra: None,
@@ -1648,7 +1648,7 @@ impl Source {
                 location,
                 subdirectory,
                 ..
-            } => Source::Url {
+            } => Self::Url {
                 url: location,
                 subdirectory: subdirectory.map(PortablePathBuf::from),
                 marker: MarkerTree::TRUE,
@@ -1660,14 +1660,14 @@ impl Source {
             } => {
                 if rev.is_none() && tag.is_none() && branch.is_none() {
                     let rev = match git.reference() {
-                        GitReference::Branch(rev) => Some(rev),
-                        GitReference::Tag(rev) => Some(rev),
-                        GitReference::BranchOrTag(rev) => Some(rev),
-                        GitReference::BranchOrTagOrCommit(rev) => Some(rev),
+                        GitReference::Branch(rev) |
+                        GitReference::Tag(rev) |
+                        GitReference::BranchOrTag(rev) |
+                        GitReference::BranchOrTagOrCommit(rev) |
                         GitReference::NamedRef(rev) => Some(rev),
                         GitReference::DefaultBranch => None,
                     };
-                    Source::Git {
+                    Self::Git {
                         rev: rev.cloned(),
                         tag,
                         branch,
@@ -1678,7 +1678,7 @@ impl Source {
                         group: None,
                     }
                 } else {
-                    Source::Git {
+                    Self::Git {
                         rev,
                         tag,
                         branch,
