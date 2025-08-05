@@ -96,7 +96,7 @@ where
         }
     }
 
-    deserializer.deserialize_map(Visitor(error_msg, std::marker::PhantomData))
+    deserializer.deserialize_map(Visitor(error_msg, <_>::default()))
 }
 
 /// A `pyproject.toml` as specified in PEP 517.
@@ -1751,7 +1751,7 @@ impl<'de> Deserialize<'de> for BuildBackendSettingsSchema {
     where
         D: Deserializer<'de>,
     {
-        Ok(BuildBackendSettingsSchema)
+        Ok(Self)
     }
 }
 

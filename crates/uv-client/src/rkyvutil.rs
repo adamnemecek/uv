@@ -85,7 +85,7 @@ where
             .map_err(|e| ErrorKind::ArchiveRead(e.to_string()))?;
         Ok(Self {
             raw,
-            archive: std::marker::PhantomData,
+            archive: <_>::default(),
         })
     }
 
@@ -115,7 +115,7 @@ where
             .map_err(|e| ErrorKind::ArchiveWrite(e.to_string()))?;
         Ok(Self {
             raw,
-            archive: std::marker::PhantomData,
+            archive: <_>::default(),
         })
     }
 

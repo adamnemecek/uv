@@ -238,7 +238,7 @@ impl<'de, T: Pep508Url> Deserialize<'de> for Requirement<T> {
             }
         }
 
-        deserializer.deserialize_str(RequirementVisitor(std::marker::PhantomData))
+        deserializer.deserialize_str(RequirementVisitor(<_>::default()))
     }
 }
 
