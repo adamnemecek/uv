@@ -136,7 +136,7 @@ impl<CallbackError: std::error::Error + 'static> CachedClientError<CallbackError
 
     fn retries(&self) -> Option<u32> {
         match self {
-            Self::Client { retries, .. } => *retries,
+            Self::Client { retries, .. } |
             Self::Callback { retries, .. } => *retries,
         }
     }

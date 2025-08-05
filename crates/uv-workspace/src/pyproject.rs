@@ -1698,10 +1698,10 @@ impl Source {
     /// Return the [`MarkerTree`] for the source.
     pub fn marker(&self) -> MarkerTree {
         match self {
-            Self::Git { marker, .. } => *marker,
-            Self::Url { marker, .. } => *marker,
-            Self::Path { marker, .. } => *marker,
-            Self::Registry { marker, .. } => *marker,
+            Self::Git { marker, .. } |
+            Self::Url { marker, .. } |
+            Self::Path { marker, .. } |
+            Self::Registry { marker, .. } |
             Self::Workspace { marker, .. } => *marker,
         }
     }
@@ -1709,10 +1709,10 @@ impl Source {
     /// Return the extra name for the source.
     pub fn extra(&self) -> Option<&ExtraName> {
         match self {
-            Self::Git { extra, .. } => extra.as_ref(),
-            Self::Url { extra, .. } => extra.as_ref(),
-            Self::Path { extra, .. } => extra.as_ref(),
-            Self::Registry { extra, .. } => extra.as_ref(),
+            Self::Git { extra, .. } |
+            Self::Url { extra, .. } |
+            Self::Path { extra, .. } |
+            Self::Registry { extra, .. } |
             Self::Workspace { extra, .. } => extra.as_ref(),
         }
     }
@@ -1720,10 +1720,10 @@ impl Source {
     /// Return the dependency group name for the source.
     pub fn group(&self) -> Option<&GroupName> {
         match self {
-            Self::Git { group, .. } => group.as_ref(),
-            Self::Url { group, .. } => group.as_ref(),
-            Self::Path { group, .. } => group.as_ref(),
-            Self::Registry { group, .. } => group.as_ref(),
+            Self::Git { group, .. } |
+            Self::Url { group, .. } |
+            Self::Path { group, .. } |
+            Self::Registry { group, .. } |
             Self::Workspace { group, .. } => group.as_ref(),
         }
     }
