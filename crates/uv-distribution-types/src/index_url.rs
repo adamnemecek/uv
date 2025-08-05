@@ -260,10 +260,8 @@ impl Deref for IndexUrl {
     type Target = Url;
 
     fn deref(&self) -> &Self::Target {
-        match &self {
-            Self::Pypi(url) => url,
-            Self::Url(url) => url,
-            Self::Path(url) => url,
+        match self {
+            Self::Pypi(url) | Self::Url(url) | Self::Path(url) => url,
         }
     }
 }

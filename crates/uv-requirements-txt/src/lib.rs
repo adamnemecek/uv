@@ -1131,23 +1131,23 @@ impl Display for RequirementsTxtParserError {
 
 impl std::error::Error for RequirementsTxtParserError {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        match &self {
+        match self {
             Self::Io(err) => err.source(),
             Self::Url { source, .. } => Some(source),
             Self::FileUrl { .. } => None,
             Self::VerbatimUrl { source, .. } => Some(source),
-            Self::UrlConversion(_) => None,
+            Self::UrlConversion(_) |
             Self::UnsupportedUrl(_) => None,
             Self::NonEditable { source, .. } => Some(source),
             Self::MissingRequirementPrefix(_) => None,
-            Self::NoBinary { source, .. } => Some(source),
+            Self::NoBinary { source, .. } |
             Self::OnlyBinary { source, .. } => Some(source),
             Self::UnnamedConstraint { .. } => None,
-            Self::UnsupportedRequirement { source, .. } => Some(source),
-            Self::Pep508 { source, .. } => Some(source),
+            Self::UnsupportedRequirement { source, .. } |
+            Self::Pep508 { source, .. } |
             Self::ParsedUrl { source, .. } => Some(source),
             Self::Subfile { source, .. } => Some(source.as_ref()),
-            Self::Parser { .. } => None,
+            Self::Parser { .. } |
             Self::NonUnicodeUrl { .. } => None,
             #[cfg(feature = "http")]
             Self::Reqwest(_, err) => err.source(),

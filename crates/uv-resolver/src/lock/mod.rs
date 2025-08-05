@@ -3540,7 +3540,7 @@ impl Source {
 
     /// Returns `true` if the source is that of a wheel.
     fn is_wheel(&self) -> bool {
-        match &self {
+        match self {
             Self::Path(path) => {
                 matches!(
                     DistExtension::from_path(path).ok(),
@@ -3553,11 +3553,11 @@ impl Source {
                     Some(DistExtension::Wheel)
                 )
             }
-            Self::Directory(..) => false,
-            Self::Editable(..) => false,
-            Self::Virtual(..) => false,
-            Self::Git(..) => false,
-            Self::Registry(..) => false,
+            Self::Directory(..)
+            | Self::Editable(..)
+            | Self::Virtual(..)
+            | Self::Git(..)
+            | Self::Registry(..) => false,
         }
     }
 
@@ -3927,7 +3927,7 @@ impl SourceDist {
     }
 
     fn url(&self) -> Option<&UrlString> {
-        match &self {
+        match self {
             Self::Metadata { .. } => None,
             Self::Url { url, .. } => Some(url),
             Self::Path { .. } => None,
@@ -3935,26 +3935,26 @@ impl SourceDist {
     }
 
     pub(crate) fn hash(&self) -> Option<&Hash> {
-        match &self {
-            Self::Metadata { metadata } => metadata.hash.as_ref(),
-            Self::Url { metadata, .. } => metadata.hash.as_ref(),
-            Self::Path { metadata, .. } => metadata.hash.as_ref(),
+        match self {
+            Self::Metadata { metadata }
+            | Self::Url { metadata, .. }
+            | Self::Path { metadata, .. } => metadata.hash.as_ref(),
         }
     }
 
     pub(crate) fn size(&self) -> Option<u64> {
-        match &self {
-            Self::Metadata { metadata } => metadata.size,
-            Self::Url { metadata, .. } => metadata.size,
-            Self::Path { metadata, .. } => metadata.size,
+        match self {
+            Self::Metadata { metadata }
+            | Self::Url { metadata, .. }
+            | Self::Path { metadata, .. } => metadata.size,
         }
     }
 
     pub(crate) fn upload_time(&self) -> Option<Timestamp> {
-        match &self {
-            Self::Metadata { metadata } => metadata.upload_time,
-            Self::Url { metadata, .. } => metadata.upload_time,
-            Self::Path { metadata, .. } => metadata.upload_time,
+        match self {
+            Self::Metadata { metadata }
+            | Self::Url { metadata, .. }
+            | Self::Path { metadata, .. } => metadata.upload_time,
         }
     }
 }
@@ -4169,7 +4169,7 @@ impl SourceDist {
     /// Returns the TOML representation of this source distribution.
     fn to_toml(&self) -> Result<InlineTable, toml_edit::ser::Error> {
         let mut table = InlineTable::new();
-        match &self {
+        match self {
             Self::Metadata { .. } => {}
             Self::Url { url, .. } => {
                 table.insert("url", Value::from(url.as_ref()));
