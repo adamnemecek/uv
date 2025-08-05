@@ -713,6 +713,9 @@ pub(super) async fn do_sync(
     // If necessary, convert editable to non-editable distributions.
     let resolution = apply_editable_mode(resolution, editable);
 
+    // Constrain any build requirements marked as `match-runtime = true`.
+    let extra_build_requires = extra_build_requires.match_runtime(&resolution)?;
+
     index_locations.cache_index_credentials();
 
     // Populate credentials from the target.
@@ -759,7 +762,7 @@ pub(super) async fn do_sync(
     let build_dispatch = BuildDispatch::new(
         &client,
         cache,
-        build_constraints,
+        &build_constraints,
         venv.interpreter(),
         index_locations,
         &flat_index,
