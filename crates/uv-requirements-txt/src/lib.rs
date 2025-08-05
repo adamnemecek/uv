@@ -1136,19 +1136,16 @@ impl std::error::Error for RequirementsTxtParserError {
             Self::Url { source, .. } => Some(source),
             Self::FileUrl { .. } => None,
             Self::VerbatimUrl { source, .. } => Some(source),
-            Self::UrlConversion(_) |
-            Self::UnsupportedUrl(_) => None,
+            Self::UrlConversion(_) | Self::UnsupportedUrl(_) => None,
             Self::NonEditable { source, .. } => Some(source),
             Self::MissingRequirementPrefix(_) => None,
-            Self::NoBinary { source, .. } |
-            Self::OnlyBinary { source, .. } => Some(source),
+            Self::NoBinary { source, .. } | Self::OnlyBinary { source, .. } => Some(source),
             Self::UnnamedConstraint { .. } => None,
-            Self::UnsupportedRequirement { source, .. } |
-            Self::Pep508 { source, .. } |
-            Self::ParsedUrl { source, .. } => Some(source),
+            Self::UnsupportedRequirement { source, .. }
+            | Self::Pep508 { source, .. }
+            | Self::ParsedUrl { source, .. } => Some(source),
             Self::Subfile { source, .. } => Some(source.as_ref()),
-            Self::Parser { .. } |
-            Self::NonUnicodeUrl { .. } => None,
+            Self::Parser { .. } | Self::NonUnicodeUrl { .. } => None,
             #[cfg(feature = "http")]
             Self::Reqwest(_, err) => err.source(),
             #[cfg(feature = "http")]

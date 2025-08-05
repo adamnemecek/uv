@@ -1660,11 +1660,11 @@ impl Source {
             } => {
                 if rev.is_none() && tag.is_none() && branch.is_none() {
                     let rev = match git.reference() {
-                        GitReference::Branch(rev) |
-                        GitReference::Tag(rev) |
-                        GitReference::BranchOrTag(rev) |
-                        GitReference::BranchOrTagOrCommit(rev) |
-                        GitReference::NamedRef(rev) => Some(rev),
+                        GitReference::Branch(rev)
+                        | GitReference::Tag(rev)
+                        | GitReference::BranchOrTag(rev)
+                        | GitReference::BranchOrTagOrCommit(rev)
+                        | GitReference::NamedRef(rev) => Some(rev),
                         GitReference::DefaultBranch => None,
                     };
                     Self::Git {
@@ -1698,33 +1698,33 @@ impl Source {
     /// Return the [`MarkerTree`] for the source.
     pub fn marker(&self) -> MarkerTree {
         match self {
-            Self::Git { marker, .. } |
-            Self::Url { marker, .. } |
-            Self::Path { marker, .. } |
-            Self::Registry { marker, .. } |
-            Self::Workspace { marker, .. } => *marker,
+            Self::Git { marker, .. }
+            | Self::Url { marker, .. }
+            | Self::Path { marker, .. }
+            | Self::Registry { marker, .. }
+            | Self::Workspace { marker, .. } => *marker,
         }
     }
 
     /// Return the extra name for the source.
     pub fn extra(&self) -> Option<&ExtraName> {
         match self {
-            Self::Git { extra, .. } |
-            Self::Url { extra, .. } |
-            Self::Path { extra, .. } |
-            Self::Registry { extra, .. } |
-            Self::Workspace { extra, .. } => extra.as_ref(),
+            Self::Git { extra, .. }
+            | Self::Url { extra, .. }
+            | Self::Path { extra, .. }
+            | Self::Registry { extra, .. }
+            | Self::Workspace { extra, .. } => extra.as_ref(),
         }
     }
 
     /// Return the dependency group name for the source.
     pub fn group(&self) -> Option<&GroupName> {
         match self {
-            Self::Git { group, .. } |
-            Self::Url { group, .. } |
-            Self::Path { group, .. } |
-            Self::Registry { group, .. } |
-            Self::Workspace { group, .. } => group.as_ref(),
+            Self::Git { group, .. }
+            | Self::Url { group, .. }
+            | Self::Path { group, .. }
+            | Self::Registry { group, .. }
+            | Self::Workspace { group, .. } => group.as_ref(),
         }
     }
 }

@@ -2314,7 +2314,7 @@ pub(crate) async fn update_environment(
     let extras = ExtrasSpecification::default();
     let groups = BTreeMap::new();
     let hasher = HashStrategy::default();
-    let preferences = Vec::default();
+    let preferences = vec![];
 
     // Determine the tags to use for resolution.
     let tags = venv.interpreter().tags()?;

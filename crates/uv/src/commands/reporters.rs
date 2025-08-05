@@ -85,7 +85,7 @@ impl Default for BarState {
     fn default() -> Self {
         Self {
             headers: 0,
-            sizes: Vec::default(),
+            sizes: vec![],
             bars: FxHashMap::default(),
             id: 0,
             // Avoid resizing the progress bar templates too often by starting with a padding

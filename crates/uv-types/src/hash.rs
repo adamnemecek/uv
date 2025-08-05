@@ -99,9 +99,7 @@ impl HashStrategy {
     /// Returns `true` if the given registry-based package is allowed.
     pub fn allows_package(&self, name: &PackageName, version: &Version) -> bool {
         match self {
-            Self::None |
-            Self::Generate(_) |
-            Self::Verify(_) => true,
+            Self::None | Self::Generate(_) | Self::Verify(_) => true,
             Self::Require(hashes) => {
                 hashes.contains_key(&VersionId::from_registry(name.clone(), version.clone()))
             }
@@ -111,9 +109,7 @@ impl HashStrategy {
     /// Returns `true` if the given direct URL package is allowed.
     pub fn allows_url(&self, url: &DisplaySafeUrl) -> bool {
         match self {
-            Self::None |
-            Self::Generate(_) |
-            Self::Verify(_) => true,
+            Self::None | Self::Generate(_) | Self::Verify(_) => true,
             Self::Require(hashes) => hashes.contains_key(&VersionId::from_url(url)),
         }
     }
