@@ -1222,9 +1222,9 @@ impl Refresh {
             }
 
             // If the policy is `All`, refresh all packages.
-            (Self::All(t1), Self::None(t2)) => Self::All(t1.max(t2)),
-            (Self::All(t1), Self::All(t2)) => Self::All(t1.max(t2)),
-            (Self::All(t1), Self::Packages(.., t2)) => Self::All(t1.max(t2)),
+            (Self::All(t1), Self::None(t2))
+            | (Self::All(t1), Self::All(t2))
+            | (Self::All(t1), Self::Packages(.., t2)) => Self::All(t1.max(t2)),
 
             // If the policy is `Packages`, take the "max" of the two policies.
             (Self::Packages(packages, paths, t1), Self::None(t2)) => {

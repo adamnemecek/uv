@@ -588,7 +588,7 @@ impl<'a> ParsedRawExtra<'a> {
                 name_error,
             }
         })?;
-        match *self {
+        match self {
             ParsedRawExtra::Extra { extra, .. } => {
                 let extra = ExtraName::from_str(extra).map_err(|name_error| {
                     ResolveError::InvalidValueInConflictMarker {
@@ -611,9 +611,8 @@ impl<'a> ParsedRawExtra<'a> {
     }
 
     fn package(&self) -> &'a str {
-        match *self {
-            ParsedRawExtra::Extra { package, .. } => package,
-            ParsedRawExtra::Group { package, .. } => package,
+        match self {
+            Self::Extra { package, .. } | Self::Group { package, .. } => package,
         }
     }
 }

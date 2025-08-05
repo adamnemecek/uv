@@ -1691,8 +1691,8 @@ impl VirtualProject {
     /// Return the [`PackageName`] of the project, if available.
     pub fn project_name(&self) -> Option<&PackageName> {
         match self {
-            VirtualProject::Project(project) => Some(project.project_name()),
-            VirtualProject::NonProject(_) => None,
+            Self::Project(project) => Some(project.project_name()),
+            Self::NonProject(_) => None,
         }
     }
 
